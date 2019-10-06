@@ -1,0 +1,50 @@
+#!/usr/bin/env python3
+"""
+Setup script for ServiceInstaller.
+"""
+
+import setuptools
+
+
+PROJECT_NAME = "serviceinstaller"
+
+
+with open("README.md", "r", encoding="utf-8") as readme_file:
+    long_description = readme_file.read()
+
+version = {}
+with open(PROJECT_NAME + ".py", "r", encoding="utf-8") as version_file:
+    exec(version_file.read(), version)
+
+
+setuptools.setup(
+    name=PROJECT_NAME,
+    version=version["__version__"],
+    author="C.A.M. Gerlach",
+    author_email="CAM.Gerlach@Gerlach.CAM",
+    description=("A flexible service installer, "
+                 "currently compatible with Linux Systemd."),
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    keywords="systemd service linux unit installer",
+    url="https://github.com/CAM-Gerlach/serviceinstaller",
+    packages=setuptools.find_packages(),
+    python_requires=">=3.6",
+    install_requires=[],
+    classifiers=[
+        "Development Status :: 3 - Alpha",
+        "Intended Audience :: Developers",
+        "Intended Audience :: System Administrators",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: POSIX :: Linux",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3 :: Only",
+        "Topic :: System :: Installation/Setup",
+        "Topic :: System :: Operating System",
+        "Topic :: System :: Software Distribution",
+        "Topic :: System :: Systems Administration",
+        "Topic :: Utilities",
+        ],
+    )
