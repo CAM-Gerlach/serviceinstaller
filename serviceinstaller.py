@@ -130,8 +130,38 @@ def write_systemd_config(service_config, filename,
     return output_path
 
 
-def install_service(service_settings, service_filename, services_enable=None,
-                    services_disable=None, platform=None, verbose=None):
+def install_service(service_settings, service_filename=None,
+                    services_enable=None, services_disable=None,
+                    platform=None, verbose=None):
+    """
+    Install a service with the given settings to the given filename.
+
+    Currently only supports Linux Systemd.
+
+    Parameters
+    ----------
+    service_settings : dict of str: any
+        Dictionary, potentially ntested, of the settings for the service.
+        Varies by service platform; for systemd, will contain the parameters
+        listed in a standard service unit file. Applied on top of the defaults.
+    service_filename : str, optional
+        What to name the resulting service file (as needed),
+        including any extension. The default is None.
+    services_enable : list-like, optional
+        Services to manually enable along with this one. The default is None.
+    services_disable : TYPE, optional
+        Services to manually disable along with this one. The default is None.
+    platform : str, optional
+        Platform to install the service on. Currently, only ``linux`` suported.
+        By default, will be detected automatically.
+    verbose : bool, optional
+        Whether to print verbose log output. By default, prints nothing.
+
+    Returns
+    -------
+    None.
+
+    """
     log_setup(verbose)
 
     logging.debug("Installing %s service...", service_filename)
