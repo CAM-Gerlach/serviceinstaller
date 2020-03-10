@@ -50,7 +50,7 @@ def get_actual_username():
 
 
 # --- Module level constants ---
-VERSION_INFO = (0, 1, 1)
+VERSION_INFO = (0, 1, 2)
 __version__ = '.'.join((str(version) for version in VERSION_INFO))
 
 PlatformConfig = collections.namedtuple(
@@ -125,11 +125,11 @@ def write_systemd_config(service_config, filename,
               encoding="utf-8", newline="\n") as service_file:
         service_config.write(service_file)
     os.chmod(output_path, 0o644)
-    os.chown(output_path, 0, 0)
+    os.chown(output_path, 0, 0)  # pylint: disable=no-member
     return output_path
 
 
-def install_service(service_settings, service_filename=None,
+def install_service(service_settings, service_filename,
                     services_enable=None, services_disable=None,
                     platform=None, verbose=None):
     """
@@ -162,6 +162,10 @@ def install_service(service_settings, service_filename=None,
 
     """
     log_setup(verbose)
+    if services_enable is None:
+        services_enable = []
+    if services_disable is None:
+        services_disable = []
 
     logging.debug("Installing %s service...", service_filename)
     platform_config = get_platform_config(platform)

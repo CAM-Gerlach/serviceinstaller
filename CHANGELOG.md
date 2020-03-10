@@ -1,6 +1,16 @@
 # ServiceInstaller Changelog
 
 
+## Version 0.1.2 (2020-03-10)
+
+Bugfix release to fix various issues:
+
+* Fix serious bug when filename, services_enable or services_disable is None
+* Minor refinements to setup.py
+* Ensure full project is pylint-clean and add .pylintrc
+
+
+
 ## Version 0.1.1 (2019-10-28)
 
 Minor bugfix release to fix a one significant bug on Debian:

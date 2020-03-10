@@ -3,28 +3,35 @@
 Setup script for ServiceInstaller.
 """
 
+# Standard library imports
+from pathlib import Path
+
+# Third party imports
 import setuptools
 
 
 PROJECT_NAME = "serviceinstaller"
 
 
-with open("README.md", "r", encoding="utf-8") as readme_file:
-    long_description = readme_file.read()
+with open(Path(__file__).resolve().parent / "README.md",
+          mode="r", encoding="utf-8") as readme_file:
+    LONG_DESCRIPTION = readme_file.read()
 
-version = {}
-with open(PROJECT_NAME + ".py", "r", encoding="utf-8") as version_file:
-    exec(version_file.read(), version)
+# Single source the version; based on a PyPA pattern and exec is nessesary
+VERSION = {}
+with open(Path(__file__).resolve().parent / (PROJECT_NAME + ".py"),
+          mode="r", encoding="utf-8") as version_file:
+    exec(version_file.read(), VERSION)  # pylint: disable=exec-used
 
 
 setuptools.setup(
     name=PROJECT_NAME,
-    version=version["__version__"],
+    version=VERSION["__version__"],
     author="C.A.M. Gerlach",
     author_email="CAM.Gerlach@Gerlach.CAM",
     description=("A flexible service installer, "
                  "currently compatible with Linux Systemd."),
-    long_description=long_description,
+    long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",
     keywords="systemd service linux unit installer",
     url="https://github.com/CAM-Gerlach/serviceinstaller",
