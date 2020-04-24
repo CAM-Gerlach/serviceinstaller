@@ -1,6 +1,14 @@
 # ServiceInstaller Changelog
 
 
+## Version 0.1.3 (2020-04-23)
+
+Bugfix release to fix various issues:
+
+* Fix issue with timeout being set too short for low-end systems (eg RPi Zero)
+
+
+
 ## Version 0.1.2 (2020-03-10)
 
 Bugfix release to fix various issues:

@@ -15,6 +15,9 @@ import subprocess
 import sys
 
 
+COMMAND_TIMEOUT = 60
+
+
 # --- Utility functions ---
 def log_setup(verbose=None):
     if verbose is None:
@@ -50,7 +53,7 @@ def get_actual_username():
 
 
 # --- Module level constants ---
-VERSION_INFO = (0, 1, 2)
+VERSION_INFO = (0, 1, 3)
 __version__ = '.'.join((str(version) for version in VERSION_INFO))
 
 PlatformConfig = collections.namedtuple(
@@ -178,17 +181,18 @@ def install_service(service_settings, service_filename,
         service_config, service_filename, platform)
 
     logging.debug("Reloading systemd daemon...")
-    subprocess.run(("systemctl", "daemon-reload"), timeout=5, check=True)
+    subprocess.run(
+        ("systemctl", "daemon-reload"), timeout=COMMAND_TIMEOUT, check=True)
 
     for service in services_disable:
         logging.debug("Disabling %s (if enabled)...", service)
         subprocess.run(("systemctl", "disable", service),
-                       timeout=5, check=False)
+                       timeout=COMMAND_TIMEOUT, check=False)
 
     for service in (*services_enable, service_filename):
         logging.debug("Enabling %s...", service)
         subprocess.run(("systemctl", "enable", service),
-                       timeout=5, check=True)
+                       timeout=COMMAND_TIMEOUT, check=True)
 
     logging.info("Successfully installed %s service to %s",
                  service_filename, output_path)
